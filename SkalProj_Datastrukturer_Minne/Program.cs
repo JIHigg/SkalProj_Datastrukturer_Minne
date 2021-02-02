@@ -170,6 +170,78 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+            Queue<string> Queue = new Queue<string>();
+            bool open = true;
+            char choice = ' ';
+            while (open)
+            {
+                Console.WriteLine("\nFeel free to add or remove someone from the Queue."+
+                    "\n'1' to Add someone to the Queue:"+
+                    "\n'2' to Remove someone from the Queue:"+
+                    "\n'3' to Quit back to main menu:");
+
+                try
+                {
+                    choice = Console.ReadLine()[0];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please make a valid selection");
+                }
+                switch (choice)
+                {
+                    case '1':
+                        QueueDisplay(Queue);
+                        Console.WriteLine("Who would you like to add to the queue? You can separate multiple people with a comma ',' :");
+                        string newPerson = Console.ReadLine();
+
+                        char[] separators = { ',',' ' };
+                        string[] names = newPerson.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+                        foreach (string name in names)
+                        {
+                            Queue.Enqueue(name);
+                            Console.WriteLine($"\n{name} has been added to the queue.");
+                        }
+                        break;
+                    case '2':
+                        QueueDisplay(Queue);
+                        Console.WriteLine("How many would you like to remove from the queue?");
+                        string n = Console.ReadLine();
+                        int peopleOut;
+                        int.TryParse(n, out peopleOut);
+                        for (int i = 0; i < peopleOut && Queue.Count > 0; i++)
+                        {
+                            Queue.Dequeue();
+                        }
+                        Console.WriteLine($"\n{peopleOut.ToString()} have made their way out of the queue.");
+                        QueueDisplay(Queue);
+                        break;
+                    case '3':
+                        open = false;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Please make a valid selection.");
+                        break;
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Quick method to display the current people in the Queue
+        /// </summary>
+        /// <param name="Queue"></param>
+        private static void QueueDisplay(Queue<string> Queue)
+        {
+            Console.WriteLine("\nHere are the people in the Queue:" +
+                                        "\n-------------------");
+            foreach (string person in Queue)
+            {
+                Console.WriteLine(person);
+            }
         }
 
         /// <summary>
@@ -191,6 +263,10 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+
+        }
+        static void TestQueue()
+        {
 
         }
 
