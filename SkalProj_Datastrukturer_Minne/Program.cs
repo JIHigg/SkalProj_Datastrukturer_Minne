@@ -265,10 +265,7 @@ namespace SkalProj_Datastrukturer_Minne
              */
 
         }
-        static void TestQueue()
-        {
-
-        }
+       
 
     }
 }
