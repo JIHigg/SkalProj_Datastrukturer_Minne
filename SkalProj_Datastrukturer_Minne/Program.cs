@@ -243,19 +243,28 @@ namespace SkalProj_Datastrukturer_Minne
             */
             Stack<string> Tower = new Stack<string>();
             bool open = true;
-            
+            char choice = ' ';
 
             while(open)
             {
                 Console.WriteLine("Welcome to the stack. Please make a selecion. You may choose:" +
-                    "\n'A' to add someone to the stack." +
-                    "\n'R' to remove someone from the stack." +
-                    "\n'Q' to quit back to main menu:");
+                    "\n'1' to add someone to the stack." +
+                    "\n'2' to remove someone from the stack." +
+                    "\n'3' Sentence reversal exercise." +
+                    "\n'4' to quit back to main menu:");
 
-                var choice = GetKey();
+             try
+                {
+                  choice = Console.ReadLine()[0];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please make a valid selection");
+                }
                 switch (choice)
                 {
-                    case ConsoleKey.A:
+                    case '1':
                         DisplayStack(Tower);
                         Console.WriteLine("\nWho would you like to add to the stack?");
                         string newThing = Console.ReadLine();
@@ -264,7 +273,7 @@ namespace SkalProj_Datastrukturer_Minne
                         Console.WriteLine($"{newThing} was added to the bottom of the stack!");
 
                         break;
-                    case ConsoleKey.R:
+                    case '2':
                         DisplayStack(Tower);
                         Console.WriteLine("\nHow many people would you like to remove from the stack?");
                         int.TryParse(Console.ReadLine(), out int people);
@@ -274,8 +283,14 @@ namespace SkalProj_Datastrukturer_Minne
                             Console.WriteLine($"{Tower.Pop()} has been removed from the stack.");
                         }
                         break;
-                    case ConsoleKey.Q:
-                        open= false;
+
+                    //Method to reverse entered text.
+                    case '3':
+                        ReverseText();
+
+                        break;
+                    case '4':
+                        open = false;
                         break;
                     default:
                         Console.Clear();
@@ -285,6 +300,27 @@ namespace SkalProj_Datastrukturer_Minne
                     
             }
 
+        }
+
+        /// <summary>
+        /// Method to reverse the string entered.
+        /// </summary>
+        private static void ReverseText()
+        {
+            Stack<char> Entries = new Stack<char>();
+
+            //Converts entry to Character Stack
+            Console.WriteLine("Please write some thing and I'll reverse it for you:");
+            string entry = Console.ReadLine();
+            char[] entryCharacters = entry.ToCharArray();
+            foreach (char character in entryCharacters)
+                Entries.Push(character);
+
+            //Reverses it on display
+            Console.WriteLine("\nHere's your message reversed:");
+            while (Entries.Count > 0)
+                Console.Write(Entries.Pop());
+            Console.WriteLine("\n");
         }
 
         static void CheckParanthesis()
