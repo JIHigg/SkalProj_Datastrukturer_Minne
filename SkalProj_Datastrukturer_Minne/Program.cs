@@ -230,6 +230,73 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
+
+        /// <summary>
+        /// Examines the datastructure Stack
+        /// </summary>
+        static void ExamineStack()
+        {
+            /*
+             * Loop this method until the user inputs something to exit to main menue.
+             * Create a switch with cases to push or pop items
+             * Make sure to look at the stack after pushing and and poping to see how it behaves
+            */
+            Stack<string> Tower = new Stack<string>();
+            bool open = true;
+            
+
+            while(open)
+            {
+                Console.WriteLine("Welcome to the stack. Please make a selecion. You may choose:" +
+                    "\n'A' to add someone to the stack." +
+                    "\n'R' to remove someone from the stack." +
+                    "\n'Q' to quit back to main menu:");
+
+                var choice = GetKey();
+                switch (choice)
+                {
+                    case ConsoleKey.A:
+                        DisplayStack(Tower);
+                        Console.WriteLine("\nWho would you like to add to the stack?");
+                        string newThing = Console.ReadLine();
+
+                        Tower.Push(newThing);
+                        Console.WriteLine($"{newThing} was added to the bottom of the stack!");
+
+                        break;
+                    case ConsoleKey.R:
+                        DisplayStack(Tower);
+                        Console.WriteLine("\nHow many people would you like to remove from the stack?");
+                        int.TryParse(Console.ReadLine(), out int people);
+
+                        for(int i = 0 ; i < people && Tower.Count > 0; i++)
+                        {
+                            Console.WriteLine($"{Tower.Pop()} has been removed from the stack.");
+                        }
+                        break;
+                    case ConsoleKey.Q:
+                        open= false;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("Please make a valid selection");
+                        break;
+                }
+                    
+            }
+
+        }
+
+        static void CheckParanthesis()
+        {
+            /*
+             * Use this method to check if the paranthesis in a string is Correct or incorrect.
+             * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
+             * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
+             */
+
+        }
+       
         /// <summary>
         /// Quick method to display the current people in the Queue
         /// </summary>
@@ -245,27 +312,26 @@ namespace SkalProj_Datastrukturer_Minne
         }
 
         /// <summary>
-        /// Examines the datastructure Stack
+        /// Quick method to return the actual key pressed.
         /// </summary>
-        static void ExamineStack()
+        /// <returns></returns>
+        internal static ConsoleKey GetKey()
         {
-            /*
-             * Loop this method until the user inputs something to exit to main menue.
-             * Create a switch with cases to push or pop items
-             * Make sure to look at the stack after pushing and and poping to see how it behaves
-            */
+            return Console.ReadKey(intercept: true).Key;
         }
 
-        static void CheckParanthesis()
+        /// <summary>
+        /// Quick method to display current stack.
+        /// </summary>
+        /// <param name="stack"></param>
+        static void DisplayStack(Stack<string> stack)
         {
-            /*
-             * Use this method to check if the paranthesis in a string is Correct or incorrect.
-             * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
-             * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
-             */
-
+            Console.WriteLine("Here is the current stack of people" +
+                                        "\n-----------------------");
+            foreach (string thing in stack)
+                Console.WriteLine(thing);
+            Console.WriteLine("----------------------");
         }
-       
 
     }
 }
