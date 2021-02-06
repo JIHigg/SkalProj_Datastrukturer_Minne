@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -248,10 +249,10 @@ namespace SkalProj_Datastrukturer_Minne
             while(open)
             {
                 Console.WriteLine("Welcome to the stack. Please make a selecion. You may choose:" +
-                    "\n'1' to add someone to the stack." +
-                    "\n'2' to remove someone from the stack." +
+                    "\n'1' To add someone to the stack." +
+                    "\n'2' To remove someone from the stack." +
                     "\n'3' Sentence reversal exercise." +
-                    "\n'4' to quit back to main menu:");
+                    "\n'4' To quit back to main menu:");
 
              try
                 {
@@ -330,9 +331,48 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+            bool open = true;
+            bool balance = true;
+            Stack<char> Openers = new Stack<char>();
 
+            while (open)
+            {
+                Console.WriteLine("Let me check to see if the paranthesis of your line is correct." +
+                    "\nPlease enter your text:");
+                string input = Console.ReadLine();
+                char[] letters = input.ToCharArray();
+
+                foreach (char letter in letters)
+                {
+
+                    if (letter.Equals('{') || letter.Equals('(') || letter.Equals('['))
+                        Openers.Push(letter);
+
+                    if (letter.Equals('}') || letter.Equals(')') || letter.Equals(']'))
+                    {
+                        if (letters.Length == 0)
+                            balance = false;
+
+                        else if (!MatchingBracket(Openers.Pop(), letter))
+                            balance = false;
+                    }
+                }
+                if (Openers.Count == 0)
+                    balance = true;
+                else
+                    balance = false;
+
+                if (balance)
+                    Console.WriteLine("Success! Your line is correct!");
+                else
+                    Console.WriteLine("Your line is incorrect.");
+
+                Console.WriteLine("Would you like to try again? Enter 'Q' to quit back to main menu:");
+                string answer = Console.ReadLine();
+                if (answer[0].Equals('Q') || answer[0].Equals('q'))
+                    open = false;
+            }
         }
-       
         /// <summary>
         /// Quick method to display the current people in the Queue
         /// </summary>
@@ -369,6 +409,25 @@ namespace SkalProj_Datastrukturer_Minne
             Console.WriteLine("----------------------");
         }
 
+        /// <summary>
+        /// Compares a list of correct matches of brackets.
+        /// </summary>
+        /// <param name="open"></param>
+        /// <param name="close"></param>
+        /// <returns></returns>
+        static Boolean MatchingBracket(char open, char close)
+        {
+            if (open == '{' && close == '}')
+                return true;
+            else if (open == '(' && close == ')')
+                return true;
+            else if (open == '[' && close == ']')
+                return true;
+            else if (open == '<' && close == '>')
+                return true;
+            else
+                return false;
+        }
     }
 }
 
