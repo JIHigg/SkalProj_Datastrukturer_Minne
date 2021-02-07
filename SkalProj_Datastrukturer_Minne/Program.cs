@@ -36,6 +36,8 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n5. Recursive Odd"
                     + "\n6. Recursice Even"
                     + "\n7. Recursive Fibonacci"
+                    + "\n8. Iterative Even"
+                    + "\n9. Iterative Fibonacci"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -83,6 +85,12 @@ namespace SkalProj_Datastrukturer_Minne
                     case '7':
                         RecursiveFibonacci();
                         break;
+                    case '8':
+                        IterativeEven();
+                        break;
+                    case '9':
+                        IterativeFibonacci();
+                        break;
                     case '0':
                         Environment.Exit(0);
                         break;
@@ -91,6 +99,85 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
                 }
             }
+        }
+        /// <summary>
+        /// Interative method to find the Nth iteration of the Fibonacci Sequence.
+        /// </summary>
+        private static void IterativeFibonacci()
+        {
+            bool open = true;
+
+            while (open)
+            {
+                Console.Clear();
+                Console.WriteLine("I will calculate the nth number in the Fibonacci Sequence."
+                                + "\nPlease give me a number to iterate: ");
+                int.TryParse(Console.ReadLine(), out int number);
+
+                Console.WriteLine($"The {number.ToString()}th number in the Fibonacci Sequence is : {IterativeFibonacci(number)}");
+
+                Console.WriteLine("Would you like to try again? Press 'Q' to quit: ");
+
+                ConsoleKey key = GetKey();
+                if (key.Equals(ConsoleKey.Q))
+                {
+                    open = false;
+                }
+
+            }
+        }
+
+        private static int IterativeFibonacci(int number)
+        {
+            int result = 0;
+            if (number == 1 || number == 0)
+                result = 1;
+
+            int fib1 = 0;
+            int fib2 = 1;
+            for (int i = 2; i<=number;i++)
+            {
+                result = fib1 + fib2;
+                fib1 = fib2;
+                fib2 = result;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Iterates to find the Nth even number.
+        /// </summary>
+        private static void IterativeEven()
+        {
+            bool open = true;
+
+            while (open)
+            {
+                Console.Clear();
+                Console.WriteLine("I will find the Nth Even number through Iteration."
+                                + "\nPlease give me a number to iterate:");
+                int.TryParse(Console.ReadLine(), out int number);
+
+                Console.WriteLine($"The {number.ToString()}th Even number is: {IterativeEven(number).ToString()}");
+
+                Console.WriteLine("Would you like to do this again? Press 'Q' to quit:");
+                ConsoleKey key = GetKey();
+                if (key.Equals(ConsoleKey.Q))
+                    open = false;
+            }
+        }
+        /// <summary>
+        /// Iterative method of calculating even number.
+        /// </summary>
+        /// <param name="number"></param>
+        private static int IterativeEven(int number)
+        {
+            int result = 0;
+            for (int i = 1; i <= number; i++)
+            {
+                result += 2;
+            }
+            return result;
         }
 
         /// <summary>
