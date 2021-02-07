@@ -33,6 +33,9 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParanthesis"
+                    + "\n5. Recursive Odd"
+                    + "\n6. Recursice Even"
+                    + "\n7. Recursive Fibonacci"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -71,6 +74,15 @@ namespace SkalProj_Datastrukturer_Minne
                      * Extend the menu to include the recursive 
                      * and iterative exercises.
                      */
+                    case '5':
+                        RecursiveOdd();
+                        break;
+                    case '6':
+                        RecursiveEven();
+                        break;
+                    case '7':
+                        RecursiveFibonacci();
+                        break;
                     case '0':
                         Environment.Exit(0);
                         break;
@@ -324,6 +336,9 @@ namespace SkalProj_Datastrukturer_Minne
             Console.WriteLine("\n");
         }
 
+        /// <summary>
+        /// Examines if Paranthesis in given line are balanced.
+        /// </summary>
         static void CheckParanthesis()
         {
             /*
@@ -373,6 +388,81 @@ namespace SkalProj_Datastrukturer_Minne
                     open = false;
             }
         }
+
+        /// <summary>
+        /// Interactive method for using RecursiveOdd method.
+        /// </summary>
+        private static void RecursiveOdd()
+        {
+            bool open = true;
+
+
+            while (open)
+            {
+
+                Console.Clear();
+                Console.WriteLine("Please give me a number:");
+                int number = int.Parse(Console.ReadLine());
+                int result = RecursiveOdd(number);
+                Console.WriteLine(result.ToString());
+                
+                Console.WriteLine("Would you like to try again? Press 'Q' to quit");
+                
+                ConsoleKey key = GetKey();
+                if (key.Equals(ConsoleKey.Q))
+                {
+                    open = false;
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Method for recursively finding the nth Odd number.
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        private static int RecursiveOdd(int n)
+        {
+            if (n==0)
+            { return 1; }
+            return (RecursiveOdd(n - 1) + 2);
+        }
+
+        /// <summary>
+        /// Interactive method for using RecursiveEven method.
+        /// </summary>
+        private static void RecursiveEven()
+        {
+            bool open = true;
+
+            while (open)
+            {
+                Console.Clear();
+                Console.WriteLine("Let me find the nth even number."
+                                + "\nGive me any number you'd like:");
+                int number = Convert.ToInt32(Console.ReadLine());
+                int result = RecursiveEven(number);
+                Console.WriteLine($"The {number.ToString()}th even number is {result.ToString()}");
+
+                Console.WriteLine("Would you like to try again? Press 'Q' to quit");
+
+                ConsoleKey key = GetKey();
+                if (key.Equals(ConsoleKey.Q))
+                {
+                    open = false;
+                }
+
+            }
+        }
+
+        private static int RecursiveEven(int n)
+        {
+            if (n == 0)
+                return 0;
+            return (RecursiveEven(n - 1) + 2);
+        }
+
         /// <summary>
         /// Quick method to display the current people in the Queue
         /// </summary>
@@ -387,13 +477,56 @@ namespace SkalProj_Datastrukturer_Minne
             }
         }
 
+        internal static void RecursiveFibonacci()
+        {
+            bool open = true;
+            int number=0;
+            while (open)
+            {
+                Console.Clear();
+                Console.WriteLine("I will find the nth number in the Fibonacci Sequence using Recursion."
+                                + "\nWhich number in the sequence would you like me to find:");
+                try { int.TryParse(Console.ReadLine(), out number); }
+                catch (Exception)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please make a valid selection.");
+                }
+
+                int result = RecursiveFibonacci(number);
+                Console.WriteLine($"The {number.ToString()}th number in the Fibonacci Sequence is: {result.ToString()}");
+
+                Console.WriteLine("Would you like to try again? Press 'Q' to quit");
+
+                ConsoleKey key = GetKey();
+                if (key.Equals(ConsoleKey.Q))
+                {
+                    open = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Calculates Nth number of Fibonacci Sequence using Recursion.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        private static int RecursiveFibonacci(int n)
+        {
+            if (n == 0||n==1)
+                return n;
+            return RecursiveFibonacci(n - 1) + RecursiveFibonacci(n - 2);
+        }
+
+
+
         /// <summary>
         /// Quick method to return the actual key pressed.
         /// </summary>
         /// <returns></returns>
         internal static ConsoleKey GetKey()
         {
-            return Console.ReadKey(intercept: true).Key;
+            return Console.ReadKey(intercept: false).Key;
         }
 
         /// <summary>
