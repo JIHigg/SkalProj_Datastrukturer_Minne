@@ -344,8 +344,9 @@ namespace SkalProj_Datastrukturer_Minne
             Stack<string> Tower = new Stack<string>();
             bool open = true;
             char choice = ' ';
+            char[] separators = { ',', ' ' };
 
-            while(open)
+            while (open)
             {
                 Console.WriteLine("Welcome to the stack. Please make a selecion. You may choose:" +
                     "\n'1' To add someone to the stack." +
@@ -365,15 +366,21 @@ namespace SkalProj_Datastrukturer_Minne
                 switch (choice)
                 {
                     case '1':
+                        Console.Clear();
                         DisplayStack(Tower);
-                        Console.WriteLine("\nWho would you like to add to the stack?");
+                        Console.WriteLine("\nWho would you like to add to the stack? You can add multiple names by separating with a comma:");
                         string newThing = Console.ReadLine();
+                        string[] newNames = newThing.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
-                        Tower.Push(newThing);
-                        Console.WriteLine($"{newThing} was added to the bottom of the stack!");
+                        foreach (string name in newNames)
+                        {
 
+                            Tower.Push(name);
+                            Console.WriteLine($"{name} was added to the bottom of the stack!");
+                        }
                         break;
                     case '2':
+                        Console.Clear();
                         DisplayStack(Tower);
                         Console.WriteLine("\nHow many people would you like to remove from the stack?");
                         int.TryParse(Console.ReadLine(), out int people);
