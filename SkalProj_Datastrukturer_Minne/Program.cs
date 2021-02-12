@@ -466,9 +466,7 @@ namespace SkalProj_Datastrukturer_Minne
                             balance = false;
                     }
                 }
-                if (Openers.Count == 0)
-                    balance = true;
-                else
+                if (Openers.Count != 0)                    
                     balance = false;
 
                 if (balance)
